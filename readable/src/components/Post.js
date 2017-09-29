@@ -10,7 +10,7 @@ class Post extends Component {
         return (
             <li className="posts-grid">
                 <div className="list-posts-content">
-                    <Link to={`/${post.category}/${post.id}`}>
+                    <Link to={`/detail/${post.id}`}>
                         <h3>{post.title}</h3>
                     </Link>
                     <div className="list-post-date">

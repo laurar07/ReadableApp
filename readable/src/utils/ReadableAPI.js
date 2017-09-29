@@ -19,6 +19,16 @@ export const getCategories = () =>
     .then(res => res.json())
     .then(data => data.categories)
 
+export const createPost = (data) =>
+  fetch(`${api}/posts`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }).then(res => res.json())
+
 /*export const getAll = () =>
   fetch(`${api}/books`, { headers })
     .then(res => res.json())

@@ -8,9 +8,8 @@ import { updateSortByPosts } from '../actions/sort'
 import { connect } from 'react-redux'
 import _ from 'lodash';
 import { Link, withRouter } from 'react-router-dom';
-import Dropdown from 'react-dropdown';
 import sortBy from 'sort-by';
-import { DropdownButton, MenuItem } from 'react-bootstrap';
+import { DropdownButton, MenuItem, PageHeader } from 'react-bootstrap';
 
 class DefaultView extends Component {
     render() {
@@ -18,21 +17,26 @@ class DefaultView extends Component {
           posts,
           category,
           categories,
+          sortBy,
           onSortByChanged
         } = this.props
         const sortOptions = ['voteScore', 'timestamp', 'author', 'title'];
         const PostViewButton = withRouter(({history}) => (
           <a onClick={() => {
-            console.log(`The category: ${this.props.category}`);
-            history.push(`/post/category/${this.props.category}`);
+            history.push(`/post/category/${category}`);
           }}>Add a post</a>
         ))
         return (
             <div>
               <Header />
+              <PageHeader>
+                    <small>
+                        Home Page
+                    </small>
+              </PageHeader>
               <div className="list-categories">
                 <ul className="categories-grid">
-                  <li key={'all'}>
+                  <li>
                       all
                   </li>
                   {categories.length > 0 && categories.map((category) => (
@@ -46,11 +50,12 @@ class DefaultView extends Component {
               </div>
               <div className="sort-by">
                 <DropdownButton bsStyle={"primary"} title={"Sort By"} key={0} id={`dropdown-basic-${0}`} onSelect={(e) => onSortByChanged({ sortBy: e })}>
-                  {sortOptions.map((sortOption, idx) => (
-                    <MenuItem eventKey={sortOptions[idx]} key={sortOptions[idx]}>
-                      {sortOptions[idx]}
-                    </MenuItem>
-                  ))}
+                  {sortOptions.map((sortOption, idx) => {
+                    if (sortOption === sortBy) {
+                      return (<MenuItem eventKey={sortOption} key={sortOption} active>{sortOption}</MenuItem>)
+                    } else {
+                      return (<MenuItem eventKey={sortOption} key={sortOption}>{sortOption}</MenuItem>)
+                    }})}
                 </DropdownButton>
               </div>
               <div className="list-posts-content">
@@ -60,27 +65,6 @@ class DefaultView extends Component {
                           post={post} />
                   ))}
                 </ol>
-                {/*<BookShelf
-                  title="Currently Reading"
-                  books={this.state.books.filter((book) => book.shelf === "currentlyReading")}
-                  onUpdateBook={(book, shelf) => {
-                      this.updateBook(book, shelf);
-                  }}
-                />
-                <BookShelf
-                  title="Want to Read"
-                  books={this.state.books.filter((book) => book.shelf === "wantToRead")}
-                  onUpdateBook={(book, shelf) => {
-                      this.updateBook(book, shelf);
-                  }}
-                />
-                <BookShelf
-                  title="Read"
-                  books={this.state.books.filter((book) => book.shelf === "read")}
-                  onUpdateBook={(book, shelf) => {
-                      this.updateBook(book, shelf);
-                  }}
-                />*/}
               </div>
               <div className="add-post">
                 <PostViewButton />
