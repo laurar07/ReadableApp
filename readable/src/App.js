@@ -11,11 +11,11 @@ class App extends Component {
         <BrowserRouter>
             <div className="app">
                 <Switch>
+                    <Route path='/post/category/:category' component={PostView}/>
+                    <Route path='/post/:id' component={PostView}/>
                     <Route path='/' exact component={DefaultView}/>
                     <Route path='/category/:category' component={DefaultView}/>
                     <Route path='/category' component={DefaultView}/>
-                    <Route path='/post/category/:category' component={PostView}/>
-                    <Route path='/post/:id' component={PostView}/>
                     <Route path='/detail/:id' component={PostDetailView}/>
                 </Switch>
             </div>

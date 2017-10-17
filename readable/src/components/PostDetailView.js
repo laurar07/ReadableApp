@@ -4,15 +4,31 @@ import Post from './Post'
 import _ from 'lodash';
 import { connect } from 'react-redux'
 import { categoryChanged } from '../actions/category'
-import { addPost } from '../actions/posts'
+import { addPost, deletePost } from '../actions/posts'
 import { ButtonGroup, Glyphicon, Col, FormControl, Button, PageHeader, Panel } from 'react-bootstrap';
+import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert'; // Import 
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css 
 import { Link, Router } from 'react-router-dom';
 
 class PostDetailView extends Component {
-    onDeleteClick(post) {
-        const { id } = post;
-        this.props.deletePost(id);
-        this.props.history.push('/');
+    onDeleteClick() {
+        const {
+            post,
+            history,
+            onDeletePost
+        } = this.props;
+
+        confirmAlert({
+            title: 'Confirm delete', 
+            message: 'Are you sure you want to delete this post?',
+            confirmLabel: 'Confirm',
+            cancelLabel: 'Cancel',
+            onConfirm: () => {
+                onDeletePost(post.id);
+                history.push('/');
+            },
+            onCancel: () => {},
+        })
     } 
     render() {
         const {
@@ -35,7 +51,7 @@ class PostDetailView extends Component {
                         <div className="list-post-votes">
                             <ButtonGroup>
                                 <Button onClick={() => history.push(`/post/${post.id}`)}><Glyphicon glyph="pencil" /></Button>
-                                <Button><Glyphicon glyph="trash" /></Button>
+                                <Button onClick={this.onDeleteClick.bind(this)}><Glyphicon glyph="trash" /></Button>
                             </ButtonGroup>
                         </div>
                     </div>
@@ -61,7 +77,7 @@ function mapStateToProps({posts, comments}, {match : {params : {id}}}) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    //onDeletePost: (data) => dispatch(deletePost(data)),
+      onDeletePost: (data) => dispatch(deletePost(data)),
     //onDeleteComment: (data) => dispatch(deleteComment(data))
   }
 }

@@ -12,7 +12,7 @@ body, .app {
 
 .list-posts-title {
   padding: 10px 0;
-  background: #2e7c31;
+  background: #7c2e79;
   text-align: center;
 }
 .list-posts-title h1 {
@@ -68,6 +68,9 @@ body, .app {
   background-size: 28px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   font-size: 0;
+}
+.post-view-cancel {
+  float: right
 }
 
 /* search page */

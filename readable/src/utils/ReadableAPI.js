@@ -29,6 +29,24 @@ export const createPost = (data) =>
     body: JSON.stringify(data)
   }).then(res => res.json())
 
+export const modifyPost = (post) =>
+  fetch(`${api}/posts/${post.id}`, {
+    method: 'PUT',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+      body: JSON.stringify(post)
+    }).then(res => res.json())
+
+export const discardPost = (id) => 
+  fetch(`${api}/posts/${id}`,{
+    method: 'DELETE',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    }})
+
 /*export const getAll = () =>
   fetch(`${api}/books`, { headers })
     .then(res => res.json())

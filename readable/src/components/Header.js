@@ -4,7 +4,7 @@ class Header extends Component {
     render() {
         return (
             <div className="list-posts-title">
-                <h1>ReadableApp</h1>
+                <h1>Readable</h1>
             </div>
         )
     }
