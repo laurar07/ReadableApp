@@ -36,9 +36,11 @@ class DefaultView extends Component {
               </PageHeader>
               <div className="list-categories">
                 <ul className="categories-grid">
-                  <li>
+                  <Link to={`/`}>
+                  <li key={`all`}>
                       all
                   </li>
+                  </Link>
                   {categories.length > 0 && categories.map((category) => (
                     <Link to={`/category/${category.name}`}>
                     <li key={category.name}>
@@ -47,8 +49,6 @@ class DefaultView extends Component {
                     </Link>
                   ))}
                 </ul>
-              </div>
-              <div className="sort-by">
                 <DropdownButton bsStyle={"primary"} title={"Sort By"} key={0} id={`dropdown-basic-${0}`} onSelect={(e) => onSortByChanged({ sortBy: e })}>
                   {sortOptions.map((sortOption, idx) => {
                     if (sortOption === sortBy) {
@@ -62,7 +62,7 @@ class DefaultView extends Component {
                 <ol className="posts-grid">
                   {posts.length > 0 && posts.map((post) => (
                     <Post key={post.id}
-                          post={post} />
+                          id={post.id} />
                   ))}
                 </ol>
               </div>

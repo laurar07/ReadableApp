@@ -57,7 +57,7 @@ class PostDetailView extends Component {
                     </div>
                     <br />
                     <Post key={post.id}
-                          post={post}/>
+                          id={post.id}/>
                     <h4 className="posts-grid">
                         {post.body}
                     </h4>

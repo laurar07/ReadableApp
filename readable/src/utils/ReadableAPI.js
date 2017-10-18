@@ -36,7 +36,7 @@ export const modifyPost = (post) =>
       ...headers,
       'Content-Type': 'application/json'
     },
-      body: JSON.stringify(post)
+    body: JSON.stringify(post)
     }).then(res => res.json())
 
 export const discardPost = (id) => 
@@ -46,6 +46,26 @@ export const discardPost = (id) =>
       ...headers,
       'Content-Type': 'application/json'
     }})
+
+export const upVotePost = (id) =>
+  fetch(`${api}/posts/${id}`,{
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({option : `upVote`})
+    }).then(res => res.json())
+
+export const downVotePost = (id) =>
+  fetch(`${api}/posts/${id}`,{
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({option : `downVote`})
+    }).then(res => res.json())
 
 /*export const getAll = () =>
   fetch(`${api}/books`, { headers })

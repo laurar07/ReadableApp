@@ -87,7 +87,6 @@ class PostView extends Component {
             category: selectedCategory || category || categories[0].name,
             body: e.target['body'].value
         }
-        //console.log(post);
         const oldPost = post;
         if (typeof oldPost === 'undefined') {
             onAddPost(newPost);
