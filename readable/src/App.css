@@ -44,6 +44,11 @@ body, .app {
   }
 }
 
+.add-comment-button {
+  padding: 0 0 20px;
+  flex: 1;
+}
+
 .bookshelf-title {
   border-bottom: 1px solid #dedede;
 }
@@ -143,6 +148,7 @@ body, .app {
   flex-wrap: wrap;
   display: block;
 }
+
 .posts-grid li {
   padding: 10px 15px;
   text-align: left;

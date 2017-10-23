@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { connect } from 'react-redux'
-import { ButtonGroup, Glyphicon, Col, FormControl, Button, PageHeader, Panel } from 'react-bootstrap';
+import { ButtonGroup, Button, Glyphicon } from 'react-bootstrap';
 import { thumbsUpPost, thumbsDownPost } from '../actions/posts'
 
 class Post extends Component {
@@ -25,15 +25,16 @@ class Post extends Component {
             {typeof post !== 'undefined' && (
             <li className="posts-grid">
                 <div className="list-posts-content">
-                    <Link to={`/detail/${post.id}`}>
+                    <Link to={`/${post.category}/${post.id}`}>
                         <h3>{post.title}</h3>
                     </Link>
                     <div className="list-post-date">
                       Submitted {moment(parseInt(post.timestamp,10)).calendar()}
                     </div>
                     <div className="list-post-votes">
-                      {post.voteScore} votes
-                      <ButtonGroup>
+                      {post.voteScore} votes 
+                      {"  "}
+                      <ButtonGroup bsSize="small">
                           <Button onClick={this.thumbsUp.bind(this)}><Glyphicon glyph="thumbs-up" /></Button>
                           <Button onClick={this.thumbsDown.bind(this)}><Glyphicon glyph="thumbs-down" /></Button>
                       </ButtonGroup>
@@ -46,9 +47,10 @@ class Post extends Component {
     }
 }
 
-function mapStateToProps({posts}, {id}) {
+function mapStateToProps({posts}, {id, comments}) {
     return {
-        post: typeof posts !== 'undefined' ? posts[id] : 'undefined'
+        post: typeof posts !== 'undefined' ? posts[id] : 'undefined',
+        comments
     };
 }
 

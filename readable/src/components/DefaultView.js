@@ -17,13 +17,14 @@ class DefaultView extends Component {
           posts,
           category,
           categories,
+          comments,
           sortBy,
           onSortByChanged
         } = this.props
         const sortOptions = ['voteScore', 'timestamp', 'author', 'title'];
         const PostViewButton = withRouter(({history}) => (
           <a onClick={() => {
-            history.push(`/post/category/${category}`);
+            history.push(`/post`);
           }}>Add a post</a>
         ))
         return (
@@ -42,7 +43,7 @@ class DefaultView extends Component {
                   </li>
                   </Link>
                   {categories.length > 0 && categories.map((category) => (
-                    <Link to={`/category/${category.name}`}>
+                    <Link to={`/${category.name}`}>
                     <li key={category.name}>
                       {category.name}
                     </li>
@@ -62,7 +63,8 @@ class DefaultView extends Component {
                 <ol className="posts-grid">
                   {posts.length > 0 && posts.map((post) => (
                     <Post key={post.id}
-                          id={post.id} />
+                          id={post.id}
+                          comments={comments[post.id] ? comments[post.id] : {}} />
                   ))}
                 </ol>
               </div>
@@ -79,6 +81,7 @@ function mapStateToProps (state, {match : {params : {category}}}) {
       categories: _.values(state.categories),
       category: typeof category !== 'undefined' ? category : "all",
       sortBy: state.sortBy.posts,
+      comments: state.comments,
       posts: _.values(state.posts).filter((post) => (typeof category === "undefined" || post.category === category)).sort(sortBy(state.sortBy.posts))
   }
 }
