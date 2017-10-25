@@ -2,12 +2,32 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { connect } from 'react-redux'
-import { ButtonGroup, Glyphicon, Col, FormControl, Button, PageHeader, Panel, Row, FieldGroup } from 'react-bootstrap';
-import { thumbsUpComment, thumbsDownComment, deleteComment } from '../actions/comments'
+import { ButtonGroup, Glyphicon, Col, FormControl, Button, PageHeader, Panel, Row, FieldGroup, Modal, Form, FormGroup, ControlLabel } from 'react-bootstrap';
+import { thumbsUpComment, thumbsDownComment, editComment, deleteComment } from '../actions/comments'
 import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert'; 
 import 'react-confirm-alert/src/react-confirm-alert.css' 
 
 class Comment extends Component {
+    state = {
+        showModal: false
+    }
+    getInitialState() {
+        return { 
+            showModal: false 
+        };
+    }
+
+    close() {
+        this.setState({ 
+            showModal: false 
+        });
+    }
+
+    open() {
+        this.setState({ 
+            showModal: true 
+        });
+    }
     thumbsUp(e) {
       if (typeof this.props.comment !== 'undefined')
         this.props.onThumbsUpComment(this.props.comment.id); 
@@ -17,7 +37,7 @@ class Comment extends Component {
         this.props.onThumbsDownComment(this.props.comment.id); 
     }
     editComment(e) {
-
+        this.open();
     }
     deleteComment(e) {
         const {
@@ -36,6 +56,21 @@ class Comment extends Component {
             },
             onCancel: () => {},
         })
+    }
+    onCommentEdit(e) {
+        e.preventDefault();
+        const {
+            onEditComment,
+            comment
+        } = this.props;
+        const editComment = {
+            id: comment.id,
+            parentId: comment.parentId,
+            timestamp: Date.now(),
+            author: e.target['author'].value,
+            body: e.target['body'].value
+        }
+        onEditComment(editComment);
     }
     render() {
         const {
@@ -82,6 +117,36 @@ class Comment extends Component {
                         </Col>
                     </Row>
                 </div>
+                <Modal show={this.state.showModal} onHide={this.close.bind(this)}>
+                <Form onSubmit={this.onCommentEdit.bind(this)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Add a comment</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <FormGroup name="author">
+                        <Col componentClass={ControlLabel} sm={2}>
+                            Author
+                        </Col>
+                        <Col sm={10}>
+                            <FormControl type="author" id="author" inputRef={ref => { this.input = ref; }} defaultValue={comment.author} />
+                        </Col>
+                    </FormGroup>
+
+                    <FormGroup name="body">
+                        <Col componentClass={ControlLabel} sm={2}>
+                            Comment
+                        </Col>
+                        <Col sm={10}>
+                            <FormControl type="body" id="body" inputRef={ref => { this.input = ref; }} defaultValue={comment.body} />
+                        </Col>
+                    </FormGroup>  
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button onClick={this.close.bind(this)}>Close</Button>
+                    <Button type="submit" onClick={this.close.bind(this)}>Submit</Button>
+                </Modal.Footer>
+                </Form>
+                </Modal>
             </li>
             )}
             </div>
@@ -99,6 +164,7 @@ function mapDispatchToProps(dispatch) {
   return {
       onThumbsUpComment: (data) => dispatch(thumbsUpComment(data)),
       onThumbsDownComment: (data) => dispatch(thumbsDownComment(data)),
+      onEditComment: (data) => dispatch(editComment(data)),
       onDeleteComment: (data) => dispatch(deleteComment(data))
   }
 }

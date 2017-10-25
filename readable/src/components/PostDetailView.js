@@ -36,7 +36,6 @@ class PostDetailView extends Component {
 
     onCommentSubmit(e) {
         e.preventDefault();
-        console.log(`${e.target.input}`);
         const {
             onAddComment,
             post
@@ -80,7 +79,7 @@ class PostDetailView extends Component {
         const {
             showModal
         } = this.state;
-        
+
         return (
             <div>
                 <Header />
