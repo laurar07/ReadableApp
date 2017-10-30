@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Post from './Post'
 import Header from './Header'
+import Footer from './Footer'
 import { fetchPosts } from '../actions/posts'
 import { fetchCategories } from '../actions/categories'
 import { updateSortByPosts } from '../actions/sort'
@@ -30,12 +31,14 @@ class DefaultView extends Component {
               <Header />
               <PageHeader>
                 <small>
-                  Home Page
+                  <div className="page-title">
+                    Home Page
+                  </div>
                 </small>
               </PageHeader>
-              <div className="list-categories">
+              <div className="list-categories-content">
                 <ul className="categories-grid">
-                    Categories
+                  Categories
                   <Link to={`/`}>
                   <li key={`all`}>
                       all
@@ -70,6 +73,7 @@ class DefaultView extends Component {
               <div className="add-post">
                 <PostViewButton />
               </div>
+              <Footer />
           </div>
         )
     }

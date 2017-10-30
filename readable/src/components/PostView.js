@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Header from './Header'
+import Footer from './Footer'
 import _ from 'lodash';
 import { connect } from 'react-redux'
 import { categoryChanged } from '../actions/category'
@@ -80,15 +81,17 @@ class PostView extends Component {
                 <Header />
                 <PageHeader>
                     <small>
-                        { post ? 'Edit ' : 'Create a new ' } Post
+                        <div className="page-title">
+                            { post ? 'Edit ' : 'Create a new ' } Post
+                        </div>
                     </small>
                 </PageHeader>
-                <Form horizontal onSubmit={this.onSubmit.bind(this)}>
+                <Form horizontal onSubmit={this.onSubmit.bind(this)} className="posts-form">
                     <FormGroup name="title">
                         <Col componentClass={ControlLabel} sm={2}>
                             Title
                         </Col>
-                        <Col sm={10}>
+                        <Col sm={8}>
                             <FormControl type="title" id="title" inputRef={ref => { this.input = ref; }} key={`${post ? post.title : ""}`} defaultValue={`${post ? post.title : ""}`} >
                             </FormControl>
                         </Col>
@@ -98,7 +101,7 @@ class PostView extends Component {
                         <Col componentClass={ControlLabel} sm={2}>
                             Category
                         </Col>
-                        <Col sm={10}>
+                        <Col sm={8}>
                             <DropdownButton bsStyle={"primary"} title={"Select"} key={0} id={`dropdown-basic-${0}`} onSelect={(e) => onCategoryChanged({ category: e })}>
                                 {categories.map((cat) => {
                                     if (cat.name === category) {
@@ -114,7 +117,7 @@ class PostView extends Component {
                         <Col componentClass={ControlLabel} sm={2}>
                             Author
                         </Col>
-                        <Col sm={10}>
+                        <Col sm={8}>
                             <FormControl type="author" id="author" inputRef={ref => { this.input = ref; }} key={`${post ? post.author : ""}`} defaultValue={`${post ? post.author : ""}`} />
                         </Col>
                     </FormGroup>
@@ -123,12 +126,12 @@ class PostView extends Component {
                         <Col componentClass={ControlLabel} sm={2}>
                             Message
                         </Col>
-                        <Col sm={10}>
+                        <Col sm={8}>
                             <FormControl type="body" id="body" inputRef={ref => { this.input = ref; }} key={`${post ? post.body : ""}`} defaultValue={`${post ? post.body : ""}`} />
                         </Col>
                     </FormGroup>
                     <FormGroup>
-                        <Col smOffset={2} sm={10}>
+                        <Col smOffset={2} sm={8}>
                             <CancelButton />
                             <Button type="submit" className="post-view-cancel btn btn-primary">
                                 Save
@@ -136,6 +139,7 @@ class PostView extends Component {
                         </Col>
                     </FormGroup>
                 </Form>
+                <Footer />
             </div>
         )
     }

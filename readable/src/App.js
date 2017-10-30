@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import DefaultView from './components/DefaultView'
 import PostView from './components/PostView'
 import PostDetailView from './components/PostDetailView'
+import InvalidRouteView from './components/InvalidRouteView'
 import './App.css'
 
 class App extends Component {
@@ -12,10 +13,11 @@ class App extends Component {
             <div className="app">
                 <Switch>
                     <Route path='/' exact component={DefaultView}/>
-                    <Route path='/post/:id' component={PostView}/>
-                    <Route path='/post' component={PostView}/>
-                    <Route path='/:category/:id' component={PostDetailView}/>
-                    <Route path='/:category' component={DefaultView}/>
+                    <Route path='/post/:id' exact component={PostView}/>
+                    <Route path='/post' exact component={PostView}/>
+                    <Route path='/:category/:id' exact component={PostDetailView}/>
+                    <Route path='/:category' exact component={DefaultView}/>
+                    <Route component={InvalidRouteView}/>
                 </Switch>
             </div>
         </BrowserRouter>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Header from './Header'
+import Footer from './Footer'
 import Post from './Post'
 import Comment from './Comment'
 import { connect } from 'react-redux'
@@ -101,7 +102,9 @@ class PostDetailView extends Component {
                 <Header />
                 <PageHeader>
                     <small>
-                        Post Details
+                        <div className="page-title">
+                            Post Details
+                        </div>
                     </small>
                 </PageHeader>
                 {typeof post !== 'undefined' && (
@@ -126,7 +129,7 @@ class PostDetailView extends Component {
                     <hr />
                     <Button bsStyle="info" onClick={this.open.bind(this)}>Add a comment</Button>
                     <div className="list-posts-content">
-                        <h5>Comments</h5>
+                        <h4 className="page-title">Comments</h4>
                         <ol className="posts-grid">
                         {comments.length > 0 && comments.map((comment) => (
                             <Comment key={comment.id}
@@ -167,6 +170,8 @@ class PostDetailView extends Component {
                 </Modal.Footer>
                 </Form>
                 </Modal>
+
+                <Footer />
             </div>
         )
     }

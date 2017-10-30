@@ -105,34 +105,24 @@ class Comment extends Component {
                 <div>
                     <Row>
                         <Col xs={3} md={2}>
-                            <code>
-                                {comment.author}
-                            </code>
+                                By {comment.author}
                         </Col>
                         <Col xs={3} md={2}>
-                            <code>
                                 Submitted {moment(parseInt(comment.timestamp,10)).calendar()}
-                            </code>
                         </Col>
                         <Col xs={6} md={4}>
-                            <code>
                                 {comment.body}
-                            </code>
                         </Col>
                         <Col xs={3} md={2}>
-                            <code>
                                 {comment.voteScore} votes
-                            </code>
                         </Col>
                         <Col xsHidden md={2}>
-                            <code>
                                 <ButtonGroup bsSize="small">
                                     <Button onClick={this.thumbsUp.bind(this)}><Glyphicon glyph="thumbs-up" /></Button>
                                     <Button onClick={this.thumbsDown.bind(this)}><Glyphicon glyph="thumbs-down" /></Button>
                                     <Button onClick={this.editComment.bind(this)}><Glyphicon glyph="pencil" /></Button>
                                     <Button onClick={this.deleteComment.bind(this)}><Glyphicon glyph="trash" /></Button>
                                 </ButtonGroup>
-                            </code>
                         </Col>
                     </Row>
                 </div>

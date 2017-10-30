@@ -23,7 +23,6 @@ export function fetchPosts() {
 
 export function fetchComments(dispatch, posts, i) {
     const post = posts[i];
-    console.log(`Item at index ${i} is ${posts[i]}`);
     if (typeof post !== 'undefined') {
         const parentId = post['id'];
         getComments(parentId)
