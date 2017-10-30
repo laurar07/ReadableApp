@@ -1,4 +1,4 @@
-## Readable App
+# Readable App
 
 This web app created with ReactJS and Redux will be your one stop shop for social media. Submit posts about your interests, find relevant content based on helpful categories, and engage with other users by posting and voting on other people's comments. The home page displays the entire lists of posts, optionally filtered by category, and sorted by timestamp, voteScore, author or title. Vote for your favorite posts, or submit a new one by clicking on the '+' at the bottom right of the screen. To see more details on a specific post, click on the title, and you will be able to view, add, edit or vote for your favorite comments. Keep on posting!
 
