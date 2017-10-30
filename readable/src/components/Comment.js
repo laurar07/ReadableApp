@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { connect } from 'react-redux'
-import { ButtonGroup, Glyphicon, Col, FormControl, Button, PageHeader, Panel, Row, FieldGroup, Modal, Form, FormGroup, ControlLabel } from 'react-bootstrap';
+import { ButtonGroup, Glyphicon, Col, FormControl, Button, Row, Modal, Form, FormGroup, ControlLabel } from 'react-bootstrap';
 import { thumbsUpComment, thumbsDownComment, editComment, deleteComment } from '../actions/comments'
-import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert'; 
+import { confirmAlert } from 'react-confirm-alert'; 
 import 'react-confirm-alert/src/react-confirm-alert.css' 
 
 class Comment extends Component {
@@ -28,21 +27,24 @@ class Comment extends Component {
             showModal: true 
         });
     }
+    
     thumbsUp(e) {
       if (typeof this.props.comment !== 'undefined')
         this.props.onThumbsUpComment(this.props.comment.id); 
     }
+
     thumbsDown(e) {
       if (typeof this.props.comment !== 'undefined')
         this.props.onThumbsDownComment(this.props.comment.id); 
     }
+
     editComment(e) {
         this.open();
     }
+
     deleteComment(e) {
         const {
             comment,
-            history,
             onDeleteComment
         } = this.props;
 
@@ -57,27 +59,44 @@ class Comment extends Component {
             onCancel: () => {},
         })
     }
+
     onCommentEdit(e) {
         e.preventDefault();
         const {
             onEditComment,
             comment
         } = this.props;
-        const editComment = {
-            id: comment.id,
-            parentId: comment.parentId,
-            timestamp: Date.now(),
-            author: e.target['author'].value,
-            body: e.target['body'].value
+
+        // Validate the values entered
+        let errorMsg = "";
+        if (!e.target['author'] || e.target['author'].value === "") {
+            errorMsg = errorMsg.concat("Please enter an author\n");
         }
-        onEditComment(editComment);
+        if (!e.target['body'] || e.target['body'].value === "") {
+            errorMsg = errorMsg.concat("Please enter a message");
+        }
+
+        if (errorMsg !== "") {
+            confirmAlert({
+                title: 'Error(s) in form', 
+                message: errorMsg,
+                confirmLabel: 'OK',
+                onConfirm: () => {},
+            })
+        } else {
+            const editComment = {
+                id: comment.id,
+                parentId: comment.parentId,
+                timestamp: Date.now(),
+                author: e.target['author'].value,
+                body: e.target['body'].value
+            }
+            onEditComment(editComment);
+        }
     }
     render() {
         const {
-          comment,
-          onThumbsUpComment,
-          onThumbsDownComment,
-          onDeleteComment
+          comment
         } = this.props;
         return (
             <div>
@@ -142,8 +161,8 @@ class Comment extends Component {
                     </FormGroup>  
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={this.close.bind(this)}>Close</Button>
-                    <Button type="submit" onClick={this.close.bind(this)}>Submit</Button>
+                    <Button className="btn-danger" onClick={this.close.bind(this)}>Close</Button>
+                    <Button className="btn btn-primary" type="submit" onClick={this.close.bind(this)}>Submit</Button>
                 </Modal.Footer>
                 </Form>
                 </Modal>

@@ -1,9 +1,12 @@
 import { GET_COMMENTS, ADD_COMMENT, EDIT_COMMENT, DELETE_COMMENT, THUMBSUP_COMMENT, THUMBSDOWN_COMMENT } from '../actions/comments';
+import { INIT_COMMENTS } from '../actions/posts'
 
 export default function commentsReducer (state = {}, action) {
     switch (action.type) {
         case GET_COMMENTS:
             return {...state, [action.parentId]: action.comments};
+        case INIT_COMMENTS:
+            return {...state, [action.pid] : []};
         case ADD_COMMENT:
             const parentId = action.comment.parentId;
             return {...state, [parentId] : state[parentId].concat(action.comment)};

@@ -7,6 +7,7 @@ export const EDIT_POST = 'EDIT_POST'
 export const DELETE_POST = 'DELETE_POST'
 export const THUMBSUP_POST = 'THUMBSUP_POST'
 export const THUMBSDOWN_POST = 'THUMBSDOWN_POST'
+export const INIT_COMMENTS = 'INIT_COMMENTS'
 
 export function fetchPosts() {
     return ((dispatch) => {
@@ -37,16 +38,15 @@ export function fetchComments(dispatch, posts, i) {
 
 export function addPost(data) {
     return (dispatch) => createPost(data)
-        .then(() => dispatch({
+        .then((post) => dispatch({
             type: ADD_POST,
-            id: data.id,
-            timestamp: data.timestamp,
-            title: data.title,
-            author: data.author,
-            category: data.category,
-            body: data.body        
-        }
-    ));
+            post      
+        }))
+        .then((res) => dispatch({
+            type: INIT_COMMENTS,
+            pid: res.post.id
+        })
+    );
 }
 
 export function editPost(data) {

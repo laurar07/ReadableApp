@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Post from './Post'
-import PostView from './PostView'
 import Header from './Header'
 import { fetchPosts } from '../actions/posts'
 import { fetchCategories } from '../actions/categories'
@@ -15,7 +14,6 @@ class DefaultView extends Component {
     render() {
         const {
           posts,
-          category,
           categories,
           comments,
           sortBy,
@@ -31,19 +29,20 @@ class DefaultView extends Component {
             <div>
               <Header />
               <PageHeader>
-                    <small>
-                        Home Page
-                    </small>
+                <small>
+                  Home Page
+                </small>
               </PageHeader>
               <div className="list-categories">
                 <ul className="categories-grid">
+                    Categories
                   <Link to={`/`}>
                   <li key={`all`}>
                       all
                   </li>
                   </Link>
                   {categories.length > 0 && categories.map((category) => (
-                    <Link to={`/${category.name}`}>
+                    <Link key={category.name} to={`/${category.name}`}>
                     <li key={category.name}>
                       {category.name}
                     </li>

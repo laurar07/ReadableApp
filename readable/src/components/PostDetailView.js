@@ -2,15 +2,12 @@ import React, { Component } from 'react'
 import Header from './Header'
 import Post from './Post'
 import Comment from './Comment'
-import _ from 'lodash';
 import { connect } from 'react-redux'
-import { categoryChanged } from '../actions/category'
-import { addPost, deletePost } from '../actions/posts'
+import { deletePost } from '../actions/posts'
 import { addComment } from '../actions/comments'
-import { ButtonGroup, Glyphicon, Col, FormControl, Button, PageHeader, Panel, Modal, FormGroup, ControlLabel, HelpBlock, Form } from 'react-bootstrap';
-import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert'; 
+import { ButtonGroup, Glyphicon, Col, FormControl, Button, PageHeader, Panel, Modal, FormGroup, ControlLabel, Form } from 'react-bootstrap';
+import { confirmAlert } from 'react-confirm-alert'; 
 import 'react-confirm-alert/src/react-confirm-alert.css' 
-import { Link, Router } from 'react-router-dom';
 
 class PostDetailView extends Component {
     state = {
@@ -40,14 +37,33 @@ class PostDetailView extends Component {
             onAddComment,
             post
         } = this.props;
-        const newComment = {
-            id: Math.random().toString(36).substr(-8),
-            parentId: post.id,
-            timestamp: Date.now(),
-            author: e.target['author'].value,
-            body: e.target['body'].value
+
+        // Validate the values entered
+        let errorMsg = "";
+        if (!e.target['author'] || e.target['author'].value === "") {
+            errorMsg = errorMsg.concat("Please enter an author\n");
         }
-        onAddComment(newComment);
+        if (!e.target['body'] || e.target['body'].value === "") {
+            errorMsg = errorMsg.concat("Please enter a message");
+        }
+
+        if (errorMsg !== "") {
+            confirmAlert({
+                title: 'Error(s) in form', 
+                message: errorMsg,
+                confirmLabel: 'OK',
+                onConfirm: () => {},
+            })
+        } else {
+            const newComment = {
+                id: Math.random().toString(36).substr(-8),
+                parentId: post.id,
+                timestamp: Date.now(),
+                author: e.target['author'].value,
+                body: e.target['body'].value
+            }
+            onAddComment(newComment);
+        }
     }
 
     onDeleteClick() {
@@ -121,7 +137,7 @@ class PostDetailView extends Component {
                 </Panel>
                 )}
 
-                <Modal show={this.state.showModal} onHide={this.close.bind(this)}>
+                <Modal show={showModal} onHide={this.close.bind(this)}>
                 <Form onSubmit={this.onCommentSubmit.bind(this)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Add a comment</Modal.Title>
@@ -146,8 +162,8 @@ class PostDetailView extends Component {
                     </FormGroup>  
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={this.close.bind(this)}>Close</Button>
-                    <Button type="submit" onClick={this.close.bind(this)}>Submit</Button>
+                    <Button className="btn btn-cancel" onClick={this.close.bind(this)}>Close</Button>
+                    <Button className="btn-primary" type="submit" onClick={this.close.bind(this)}>Submit</Button>
                 </Modal.Footer>
                 </Form>
                 </Modal>

@@ -8,17 +8,9 @@ export default function postsReducer (state = {}, action) {
             const filteredGetPosts = _.mapKeys(filterGetPosts,'id');
             return {...filteredGetPosts};
         case ADD_POST:
-            return {...state, [action.id] : { 
-                    id: action.id, 
-                    timestamp: 
-                    action.timestamp, 
-                    author: action.author, 
-                    title: action.title, 
-                    category: action.category, 
-                    body: action.body }};
+            return {...state, [action.post.id] : action.post};
         case EDIT_POST:
-            const postId = action.post.id;
-            return {...state, [postId] : action.post};
+            return {...state, [action.post.id] : action.post};
         case DELETE_POST:
             return _.omit(state, action.id);
         case THUMBSUP_POST:

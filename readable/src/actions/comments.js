@@ -1,4 +1,4 @@
-import { getComments, createComment, modifyComment, discardComment, upVoteComment, downVoteComment } from '../utils/ReadableAPI'
+import { createComment, modifyComment, discardComment, upVoteComment, downVoteComment } from '../utils/ReadableAPI'
 
 export const GET_COMMENTS = 'GET_COMMENTS'
 export const ADD_COMMENT = 'ADD_COMMENT'

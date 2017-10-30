@@ -16,9 +16,7 @@ class Post extends Component {
     }
     render() {
         const {
-          post,
-          onThumbsUpPost,
-          onThumbsDownPost
+          post
         } = this.props;
         return (
             <div>
