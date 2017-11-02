@@ -1,4 +1,4 @@
-export const CHANGE_SORT_BY_POSTS = 'CHANGE_SORT_BY_POSTS'
+import { CHANGE_SORT_BY_POSTS } from './types'
 
 export function updateSortByPosts({ sortBy }) {
     return {

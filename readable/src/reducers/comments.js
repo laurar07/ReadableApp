@@ -1,5 +1,4 @@
-import { GET_COMMENTS, ADD_COMMENT, EDIT_COMMENT, DELETE_COMMENT, THUMBSUP_COMMENT, THUMBSDOWN_COMMENT } from '../actions/comments';
-import { INIT_COMMENTS } from '../actions/posts'
+import { GET_COMMENTS, ADD_COMMENT, EDIT_COMMENT, DELETE_COMMENT, THUMBSUP_COMMENT, THUMBSDOWN_COMMENT, INIT_COMMENTS } from '../actions/types';
 
 export default function commentsReducer (state = {}, action) {
     switch (action.type) {

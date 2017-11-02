@@ -1,4 +1,4 @@
-export const ON_CATEGORY_CHANGED = 'ON_CATEGORY_CHANGED'
+import { ON_CATEGORY_CHANGED } from './types'
 
 export function categoryChanged({ category }) { 
     return {

@@ -1,4 +1,4 @@
-import { CHANGE_SORT_BY_POSTS } from '../actions/sort'
+import { CHANGE_SORT_BY_POSTS } from '../actions/types'
 
 export const VOTE_SCORE = 'voteScore';
 export const TIMESTAMP = 'timestamp';

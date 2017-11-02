@@ -1,11 +1,5 @@
+import { ADD_COMMENT, EDIT_COMMENT, DELETE_COMMENT, THUMBSUP_COMMENT, THUMBSDOWN_COMMENT } from './types'
 import { createComment, modifyComment, discardComment, upVoteComment, downVoteComment } from '../utils/ReadableAPI'
-
-export const GET_COMMENTS = 'GET_COMMENTS'
-export const ADD_COMMENT = 'ADD_COMMENT'
-export const EDIT_COMMENT = 'EDIT_COMMENT'
-export const DELETE_COMMENT = 'DELETE_COMMENT'
-export const THUMBSUP_COMMENT = 'THUMBSUP_COMMENT'
-export const THUMBSDOWN_COMMENT = 'THUMBSDOWN_COMMENT'
 
 export function addComment(data) {
     return (dispatch) => createComment(data)
