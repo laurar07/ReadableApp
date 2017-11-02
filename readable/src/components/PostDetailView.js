@@ -3,10 +3,10 @@ import Header from './Header'
 import Footer from './Footer'
 import Post from './Post'
 import Comment from './Comment'
+import Invalid from './Invalid'
 import { connect } from 'react-redux'
-import { deletePost } from '../actions/posts'
 import { addComment } from '../actions/comments'
-import { ButtonGroup, Glyphicon, Col, FormControl, Button, PageHeader, Panel, Modal, FormGroup, ControlLabel, Form } from 'react-bootstrap';
+import { Col, FormControl, Button, PageHeader, Panel, Modal, FormGroup, ControlLabel, Form } from 'react-bootstrap';
 import { confirmAlert } from 'react-confirm-alert'; 
 import 'react-confirm-alert/src/react-confirm-alert.css' 
 
@@ -90,8 +90,7 @@ class PostDetailView extends Component {
     render() {
         const {
             post,
-            comments,
-            history
+            comments
         } = this.props;
         const {
             showModal
@@ -107,6 +106,9 @@ class PostDetailView extends Component {
                         </div>
                     </small>
                 </PageHeader>
+                {typeof post === 'undefined' && (
+                    <Invalid />
+                )}
                 {typeof post !== 'undefined' && (
                 <Panel>
                     <div className="posts-grid">
@@ -114,15 +116,12 @@ class PostDetailView extends Component {
                         Posted by {post.author}
                         </div>
                         <div className="list-post-votes">
-                            <ButtonGroup>
-                                <Button onClick={() => history.push(`/post/${post.id}`)}><Glyphicon glyph="pencil" /></Button>
-                                <Button onClick={this.onDeleteClick.bind(this)}><Glyphicon glyph="trash" /></Button>
-                            </ButtonGroup>
                         </div>
                     </div>
                     <br />
                     <Post key={post.id}
-                          id={post.id}/>
+                          id={post.id}
+                          comments={comments ? comments : {}}/>
                     <h4 className="posts-grid">
                         {post.body}
                     </h4>
@@ -187,7 +186,6 @@ function mapStateToProps({posts, comments}, {match : {params : {id}}}) {
 
 function mapDispatchToProps(dispatch) {
   return {
-      onDeletePost: (data) => dispatch(deletePost(data)),
       onAddComment: (data) => dispatch(addComment(data))
   }
 }

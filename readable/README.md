@@ -8,8 +8,9 @@ You will need to have installed [npm](https://www.npmjs.com/) in your machine.
 1. Clone this repository and navigate to the root folder of the app
 2. Run 'npm install' to download all the packages needed
 3. Run 'node server' to stand up the server instance
-4. Run 'npm start' to start up the application
-5. Navigate to [http://localhost:3000](http://localhost:3000) in your browser. Happy posting!
+4. Navigate to the 'readable' subdirectory inside of ReadableApp
+5. Run 'npm start' to start up the application
+6. Navigate to [http://localhost:3000](http://localhost:3000) in your browser. Happy posting!
 
 ## Home Page
 
